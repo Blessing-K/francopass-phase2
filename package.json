@@ -1,0 +1,23 @@
+{
+  "name": "francopass-backend",
+  "version": "0.2.0",
+  "type": "module",
+  "description": "FrancoPass Phase 2 modular Express backend (JSON data source)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
