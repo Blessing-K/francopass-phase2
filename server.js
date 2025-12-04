@@ -1,6 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./shared/middlewares/connect-db.js";
 
 // Routers
 import usersRouter from "./modules/users/routes/users.routes.js";
@@ -8,6 +10,11 @@ import examsRouter from "./modules/exams/routes/exams.routes.js";
 import vocabRouter from "./modules/vocab/routes/vocab.routes.js";
 import feedbackRouter from "./modules/feedback/routes/feedback.routes.js";
 import resourcesRouter from "./modules/resources/routes/resources.routes.js";
+
+dotenv.config();
+
+// Connect to Database
+connectDB();
 
 const app = express();
 
@@ -17,10 +24,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
-// Health check
-app.get("/", (req, res) =>
-  res.json({ ok: true, service: "FrancoPass API", version: "0.2.0" })
-);
+// Root route
+app.get("/", (req, res) => {
+  res.json({
+    message: "FrancoPass API – Phase 3 (MongoDB)",
+    routes: [
+      "/api/users",
+      "/api/exams",
+      "/api/vocab",
+      "/api/feedback",
+      "/api/resources",
+    ],
+  });
+});
 
 // === Feature Routers (independent) ===
 app.use("/api/users", usersRouter);
@@ -42,6 +58,10 @@ app.use((err, req, res, next) => {
 
 // === Start Server ===
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`FrancoPass API listening on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`FrancoPass API listening on http://localhost:${PORT}`);
+  });
+}
+
+export default app;

@@ -1,0 +1,70 @@
+import Vocab from "../models/vocab.model.js";
+
+export const getVocab = async (req, res) => {
+  try {
+    const {
+        search,
+        category,
+        difficultyLevel,
+      sort = "createdAt",
+      order = "asc",
+      page = 1,
+      limit = 10,
+    } = req.query;
+
+    const query = {};
+    if (search) query.word = new RegExp(search, "i");
+    if (category) query.category = category;
+      if (difficultyLevel) query.difficultyLevel = difficultyLevel;
+
+    const vocab = await Vocab.find(query)
+      .sort({ [sort]: order === "asc" ? 1 : -1 })
+      .skip((page - 1) * limit)
+      .limit(parseInt(limit));
+
+    res.json(vocab);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const getVocabById = async (req, res) => {
+  try {
+    const entry = await Vocab.findById(req.params.id);
+    if (!entry) return res.status(404).json({ error: "Vocab not found" });
+    res.json(entry);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const createVocab = async (req, res) => {
+  try {
+    const entry = await Vocab.create(req.body);
+    res.status(201).json(entry);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+export const updateVocab = async (req, res) => {
+  try {
+    const updated = await Vocab.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!updated) return res.status(404).json({ error: "Vocab not found" });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+export const deleteVocab = async (req, res) => {
+  try {
+    const deleted = await Vocab.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ error: "Vocab not found" });
+    res.json({ message: "Vocab deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
