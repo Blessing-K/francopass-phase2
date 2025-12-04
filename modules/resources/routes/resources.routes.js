@@ -7,7 +7,10 @@ import {
   deleteResource,
 } from "../controllers/resource.controller.js";
 import validate from "../../../shared/middlewares/validate.js";
-import { createResourceRules, updateResourceRules } from "../middlewares/validation.js";
+import {
+  createResourceRules,
+  updateResourceRules,
+} from "../middlewares/validation.js";
 
 const router = express.Router();
 

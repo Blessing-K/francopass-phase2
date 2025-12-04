@@ -3,9 +3,9 @@ import Vocab from "../models/vocab.model.js";
 export const getVocab = async (req, res) => {
   try {
     const {
-        search,
-        category,
-        difficultyLevel,
+      search,
+      category,
+      difficultyLevel,
       sort = "createdAt",
       order = "asc",
       page = 1,
@@ -15,7 +15,7 @@ export const getVocab = async (req, res) => {
     const query = {};
     if (search) query.word = new RegExp(search, "i");
     if (category) query.category = category;
-      if (difficultyLevel) query.difficultyLevel = difficultyLevel;
+    if (difficultyLevel) query.difficultyLevel = difficultyLevel;
 
     const vocab = await Vocab.find(query)
       .sort({ [sort]: order === "asc" ? 1 : -1 })

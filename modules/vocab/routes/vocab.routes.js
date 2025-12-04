@@ -7,7 +7,10 @@ import {
   deleteVocab,
 } from "../controllers/vocab.controller.js";
 import validate from "../../../shared/middlewares/validate.js";
-import { createVocabRules, updateVocabRules } from "../middlewares/validation.js";
+import {
+  createVocabRules,
+  updateVocabRules,
+} from "../middlewares/validation.js";
 
 const router = express.Router();
 

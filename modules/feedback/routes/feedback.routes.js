@@ -7,7 +7,10 @@ import {
   deleteFeedback,
 } from "../controllers/feedback.controller.js";
 import validate from "../../../shared/middlewares/validate.js";
-import { createFeedbackRules, updateFeedbackRules } from "../middlewares/validation.js";
+import {
+  createFeedbackRules,
+  updateFeedbackRules,
+} from "../middlewares/validation.js";
 
 const router = express.Router();
 

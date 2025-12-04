@@ -1,5 +1,5 @@
 module.exports = {
-  testEnvironment: 'node',
-  extensionsToTreatAsEsm: ['.js'],
+  testEnvironment: "node",
+  extensionsToTreatAsEsm: [".js"],
   testTimeout: 30000,
 };

@@ -3,7 +3,11 @@ import mongoose from "mongoose";
 // Mongoose Schema and Model
 const feedbackSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     message: { type: String, required: true },
     rating: { type: Number, min: 1, max: 5 },
   },
